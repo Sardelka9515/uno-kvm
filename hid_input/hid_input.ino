@@ -1,6 +1,6 @@
 /* Arduino USB Keyboard and Mouse HID demo
 *
-* Sends "Hello World" to the host PC and make the mouse draw a CCW square
+* Sends "Hello World" to the host PC and draw a CCW square with the mouse
 *
 */
 

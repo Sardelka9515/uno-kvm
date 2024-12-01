@@ -12,21 +12,21 @@
 #define KEYBOARD_COMMAND_SIZE 8
 
 typedef struct KeyboardCommand {
-  uint8_t modifiers = 0;
-  uint8_t reserved = 0;
-  uint8_t keys[6] = { 0 };
+  uint8_t modifiers = 0;    // TBit mask of modifiers combination
+  uint8_t reserved = 0;     // OEM reserved, should always set to 0
+  uint8_t keys[6] = { 0 };  // List of keys currently down
 } KeyboardCommand;
 
 typedef struct MouseCommand {
-  uint8_t buttons;
-  int8_t deltaX;
-  int8_t deltaY;
-  int8_t wheel;
+  uint8_t buttons = 0;      // Bit mask mouse buttons combination
+  int8_t deltaX = 0;        // Mouse x delta movement, left to right
+  int8_t deltaY = 0;        // Mouse y delta movemnt, top to bottom
+  int8_t wheel = 0;         // Not implmented
 } MouseCommand;
 
 
 const KeyboardCommand keyboard_command_null = {};
-const MouseCommand mouse_command_null = { .buttons = 0, .deltaX = 0, .deltaY = 0, .wheel = 0 };
+const MouseCommand mouse_command_null = {};
 
 void SendKeyboardCommand(KeyboardCommand* pCommand) {
   Serial.write(COMMAND_KEYBOARD);
@@ -38,6 +38,7 @@ void SendMouseCommand(MouseCommand* pCommand) {
   Serial.write((uint8_t*)pCommand, sizeof(MouseCommand));
 }
 
+/* Convert a ascii string to QWERTY keyboard input commands */
 void SendText(const char* str) {
   KeyboardCommand command;
   char c = *str;
@@ -56,7 +57,7 @@ void SendText(const char* str) {
           break;
         case '!':
           command.modifiers = MOD_SHIFT_LEFT; /* Caps */
-          command.keys[0] = KEY_1;            // Space
+          command.keys[0] = KEY_1;            // 1
           break;
         default:
           /* Character not handled. To do: add rest of chars from HUT1_11.pdf */
