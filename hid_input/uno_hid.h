@@ -12,7 +12,7 @@
 #define KEYBOARD_COMMAND_SIZE 8
 
 typedef struct KeyboardCommand {
-  uint8_t modifiers = 0;    // TBit mask of modifiers combination
+  uint8_t modifiers = 0;    // Bit mask of modifiers combination
   uint8_t reserved = 0;     // OEM reserved, should always set to 0
   uint8_t keys[6] = { 0 };  // List of keys currently down
 } KeyboardCommand;
