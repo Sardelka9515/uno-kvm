@@ -10,19 +10,27 @@ namespace UnoKVM.HID
 {
     public static class Commands
     {
-
-
         public const uint8_t COMMAND_KEYBOARD = 1;
         public const uint8_t COMMAND_MOUSE = 2;
+        public const uint8_t COMMAND_RESET = 0xff;
         public const int MOUSE_COMMAND_SIZE = 4;
         public const int KEYBOARD_COMMAND_SIZE = 8;
 
         [StructLayout(LayoutKind.Sequential)]
         public unsafe struct KeyboardCommand
         {
-            public uint8_t modifiers;    // Bit mask of modifiers combination
-            public uint8_t reserved;     // OEM reserved, should always set to 0
-            public fixed uint8_t keys[6];
+            public HIDModifiers modifiers;    // Bit mask of modifiers combination
+            public HIDKey reserved;     // OEM reserved, should always set to 0
+            public fixed byte keys[6];
+            public override string ToString()
+            {
+                var str = modifiers.ToString() + ':';
+                for (int i = 0; i < 6; i++)
+                {
+                    str += ((HIDKey)keys[i]).ToString() + ',';
+                }
+                return str;
+            }
         };
 
         [StructLayout(LayoutKind.Sequential)]
@@ -37,5 +45,7 @@ namespace UnoKVM.HID
 
         public static readonly KeyboardCommand KEYBOARD_COMMAND_NULL = default;
         public static readonly MouseCommand MOUSE_COMMAND_NULL = default;
+
+
     }
 }

@@ -757,7 +757,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000     0x12c4
+.text           0x0000000000000000     0x12d2
  *(.vectors)
  .vectors       0x0000000000000000       0x74 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr35/crtatmega16u2.o
                 0x0000000000000000                __vectors
@@ -856,117 +856,119 @@ END GROUP
  *(.text.*)
  .text.LEDs_SetAllLEDs
                 0x00000000000001b2        0xc obj/KeyboardMouse.o
+ .text.RingBuffer_InitBuffer
+                0x00000000000001be       0x1c obj/KeyboardMouse.o
  .text.RingBuffer_Insert
-                0x00000000000001be       0x3c obj/KeyboardMouse.o
+                0x00000000000001da       0x3c obj/KeyboardMouse.o
  .text.RingBuffer_Remove
-                0x00000000000001fa       0x3a obj/KeyboardMouse.o
+                0x0000000000000216       0x3a obj/KeyboardMouse.o
  .text.SetupHardware
-                0x0000000000000234       0x76 obj/KeyboardMouse.o
-                0x0000000000000234                SetupHardware
+                0x0000000000000250       0x76 obj/KeyboardMouse.o
+                0x0000000000000250                SetupHardware
  .text.startup.main
-                0x00000000000002aa       0x4c obj/KeyboardMouse.o
-                0x00000000000002aa                main
+                0x00000000000002c6       0x24 obj/KeyboardMouse.o
+                0x00000000000002c6                main
  .text.EVENT_USB_Device_Connect
-                0x00000000000002f6        0x4 obj/KeyboardMouse.o
-                0x00000000000002f6                EVENT_USB_Device_Connect
+                0x00000000000002ea        0x4 obj/KeyboardMouse.o
+                0x00000000000002ea                EVENT_USB_Device_Connect
  .text.EVENT_USB_Device_Disconnect
-                0x00000000000002fa        0x4 obj/KeyboardMouse.o
-                0x00000000000002fa                EVENT_USB_Device_Disconnect
+                0x00000000000002ee        0x4 obj/KeyboardMouse.o
+                0x00000000000002ee                EVENT_USB_Device_Disconnect
  .text.EVENT_USB_Device_ConfigurationChanged
-                0x00000000000002fe       0x2c obj/KeyboardMouse.o
-                0x00000000000002fe                EVENT_USB_Device_ConfigurationChanged
+                0x00000000000002f2       0x2c obj/KeyboardMouse.o
+                0x00000000000002f2                EVENT_USB_Device_ConfigurationChanged
  .text.EVENT_USB_Device_ControlRequest
-                0x000000000000032a        0xc obj/KeyboardMouse.o
-                0x000000000000032a                EVENT_USB_Device_ControlRequest
+                0x000000000000031e        0xc obj/KeyboardMouse.o
+                0x000000000000031e                EVENT_USB_Device_ControlRequest
  .text.EVENT_USB_Device_StartOfFrame
-                0x0000000000000336       0x2e obj/KeyboardMouse.o
-                0x0000000000000336                EVENT_USB_Device_StartOfFrame
+                0x000000000000032a       0x2e obj/KeyboardMouse.o
+                0x000000000000032a                EVENT_USB_Device_StartOfFrame
  .text.CALLBACK_HID_Device_CreateHIDReport
-                0x0000000000000364       0xf0 obj/KeyboardMouse.o
-                0x0000000000000364                CALLBACK_HID_Device_CreateHIDReport
+                0x0000000000000358       0xf0 obj/KeyboardMouse.o
+                0x0000000000000358                CALLBACK_HID_Device_CreateHIDReport
  .text.CALLBACK_HID_Device_ProcessHIDReport
-                0x0000000000000454       0x18 obj/KeyboardMouse.o
-                0x0000000000000454                CALLBACK_HID_Device_ProcessHIDReport
+                0x0000000000000448       0x18 obj/KeyboardMouse.o
+                0x0000000000000448                CALLBACK_HID_Device_ProcessHIDReport
  .text.__vector_23
-                0x000000000000046c       0x94 obj/KeyboardMouse.o
-                0x000000000000046c                __vector_23
+                0x0000000000000460       0xae obj/KeyboardMouse.o
+                0x0000000000000460                __vector_23
  .text.CALLBACK_USB_GetDescriptor
-                0x0000000000000500       0xb2 obj/Descriptors.o
-                0x0000000000000500                CALLBACK_USB_GetDescriptor
+                0x000000000000050e       0xb2 obj/Descriptors.o
+                0x000000000000050e                CALLBACK_USB_GetDescriptor
  .text.Endpoint_Write_Stream_LE
-                0x00000000000005b2       0x94 obj/EndpointStream_AVR8.o
-                0x00000000000005b2                Endpoint_Write_Stream_LE
+                0x00000000000005c0       0x94 obj/EndpointStream_AVR8.o
+                0x00000000000005c0                Endpoint_Write_Stream_LE
  .text.Endpoint_Write_Control_Stream_LE
-                0x0000000000000646       0xb6 obj/EndpointStream_AVR8.o
-                0x0000000000000646                Endpoint_Write_Control_Stream_LE
+                0x0000000000000654       0xb6 obj/EndpointStream_AVR8.o
+                0x0000000000000654                Endpoint_Write_Control_Stream_LE
  .text.Endpoint_Read_Control_Stream_LE
-                0x00000000000006fc       0x78 obj/EndpointStream_AVR8.o
-                0x00000000000006fc                Endpoint_Read_Control_Stream_LE
+                0x000000000000070a       0x78 obj/EndpointStream_AVR8.o
+                0x000000000000070a                Endpoint_Read_Control_Stream_LE
  .text.Endpoint_Write_Control_PStream_LE
-                0x0000000000000774       0xbc obj/EndpointStream_AVR8.o
-                0x0000000000000774                Endpoint_Write_Control_PStream_LE
+                0x0000000000000782       0xbc obj/EndpointStream_AVR8.o
+                0x0000000000000782                Endpoint_Write_Control_PStream_LE
  .text.Endpoint_ConfigureEndpoint_Prv
-                0x0000000000000830       0x6a obj/Endpoint_AVR8.o
-                0x0000000000000830                Endpoint_ConfigureEndpoint_Prv
+                0x000000000000083e       0x6a obj/Endpoint_AVR8.o
+                0x000000000000083e                Endpoint_ConfigureEndpoint_Prv
  .text.Endpoint_ConfigureEndpointTable
-                0x000000000000089a       0x7a obj/Endpoint_AVR8.o
-                0x000000000000089a                Endpoint_ConfigureEndpointTable
+                0x00000000000008a8       0x7a obj/Endpoint_AVR8.o
+                0x00000000000008a8                Endpoint_ConfigureEndpointTable
  .text.Endpoint_ClearStatusStage
-                0x0000000000000914       0x3e obj/Endpoint_AVR8.o
-                0x0000000000000914                Endpoint_ClearStatusStage
+                0x0000000000000922       0x3e obj/Endpoint_AVR8.o
+                0x0000000000000922                Endpoint_ClearStatusStage
  .text.Endpoint_WaitUntilReady
-                0x0000000000000952       0x66 obj/Endpoint_AVR8.o
-                0x0000000000000952                Endpoint_WaitUntilReady
+                0x0000000000000960       0x66 obj/Endpoint_AVR8.o
+                0x0000000000000960                Endpoint_WaitUntilReady
  .text.USB_ResetInterface
-                0x00000000000009b8       0x72 obj/USBController_AVR8.o
-                0x00000000000009b8                USB_ResetInterface
+                0x00000000000009c6       0x72 obj/USBController_AVR8.o
+                0x00000000000009c6                USB_ResetInterface
  .text.USB_Init
-                0x0000000000000a2a       0x12 obj/USBController_AVR8.o
-                0x0000000000000a2a                USB_Init
+                0x0000000000000a38       0x12 obj/USBController_AVR8.o
+                0x0000000000000a38                USB_Init
  .text.USB_INT_DisableAllInterrupts
-                0x0000000000000a3c        0x6 obj/USBInterrupt_AVR8.o
-                0x0000000000000a3c                USB_INT_DisableAllInterrupts
+                0x0000000000000a4a        0x6 obj/USBInterrupt_AVR8.o
+                0x0000000000000a4a                USB_INT_DisableAllInterrupts
  .text.USB_INT_ClearAllInterrupts
-                0x0000000000000a42        0x6 obj/USBInterrupt_AVR8.o
-                0x0000000000000a42                USB_INT_ClearAllInterrupts
+                0x0000000000000a50        0x6 obj/USBInterrupt_AVR8.o
+                0x0000000000000a50                USB_INT_ClearAllInterrupts
  .text.__vector_11
-                0x0000000000000a48      0x148 obj/USBInterrupt_AVR8.o
-                0x0000000000000a48                __vector_11
+                0x0000000000000a56      0x148 obj/USBInterrupt_AVR8.o
+                0x0000000000000a56                __vector_11
  .text.USB_Device_ProcessControlRequest
-                0x0000000000000b90      0x2c2 obj/DeviceStandardReq.o
-                0x0000000000000b90                USB_Device_ProcessControlRequest
+                0x0000000000000b9e      0x2c2 obj/DeviceStandardReq.o
+                0x0000000000000b9e                USB_Device_ProcessControlRequest
  .text.USB_Event_Stub
-                0x0000000000000e52        0x2 obj/Events.o
-                0x0000000000000e52                EVENT_USB_Device_WakeUp
-                0x0000000000000e52                USB_Event_Stub
-                0x0000000000000e52                EVENT_USB_Device_Suspend
-                0x0000000000000e52                EVENT_USB_Device_Reset
+                0x0000000000000e60        0x2 obj/Events.o
+                0x0000000000000e60                EVENT_USB_Device_WakeUp
+                0x0000000000000e60                USB_Event_Stub
+                0x0000000000000e60                EVENT_USB_Device_Suspend
+                0x0000000000000e60                EVENT_USB_Device_Reset
  .text.USB_USBTask
-                0x0000000000000e54       0x34 obj/USBTask.o
-                0x0000000000000e54                USB_USBTask
+                0x0000000000000e62       0x34 obj/USBTask.o
+                0x0000000000000e62                USB_USBTask
  .text.HID_Device_ProcessControlRequest
-                0x0000000000000e88      0x266 obj/HIDClassDevice.o
-                0x0000000000000e88                HID_Device_ProcessControlRequest
+                0x0000000000000e96      0x266 obj/HIDClassDevice.o
+                0x0000000000000e96                HID_Device_ProcessControlRequest
  .text.HID_Device_ConfigureEndpoints
-                0x00000000000010ee       0x26 obj/HIDClassDevice.o
-                0x00000000000010ee                HID_Device_ConfigureEndpoints
+                0x00000000000010fc       0x26 obj/HIDClassDevice.o
+                0x00000000000010fc                HID_Device_ConfigureEndpoints
  .text.HID_Device_USBTask
-                0x0000000000001114      0x172 obj/HIDClassDevice.o
-                0x0000000000001114                HID_Device_USBTask
+                0x0000000000001122      0x172 obj/HIDClassDevice.o
+                0x0000000000001122                HID_Device_USBTask
  .text.avr-libc
-                0x0000000000001286       0x1a /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr35/libc.a(memcmp.o)
-                0x0000000000001286                memcmp
+                0x0000000000001294       0x1a /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr35/libc.a(memcmp.o)
+                0x0000000000001294                memcmp
  .text.avr-libc
-                0x00000000000012a0       0x12 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr35/libc.a(memcpy.o)
-                0x00000000000012a0                memcpy
+                0x00000000000012ae       0x12 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr35/libc.a(memcpy.o)
+                0x00000000000012ae                memcpy
  .text.avr-libc
-                0x00000000000012b2        0xe /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr35/libc.a(memset.o)
-                0x00000000000012b2                memset
-                0x00000000000012c0                . = ALIGN (0x2)
+                0x00000000000012c0        0xe /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr35/libc.a(memset.o)
+                0x00000000000012c0                memset
+                0x00000000000012ce                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000000000012c0        0x0 /usr/lib/gcc/avr/5.4.0/avr35/libgcc.a(_exit.o)
-                0x00000000000012c0                exit
-                0x00000000000012c0                _exit
+ .fini9         0x00000000000012ce        0x0 /usr/lib/gcc/avr/5.4.0/avr35/libgcc.a(_exit.o)
+                0x00000000000012ce                exit
+                0x00000000000012ce                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -985,11 +987,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000000000012c0        0x4 /usr/lib/gcc/avr/5.4.0/avr35/libgcc.a(_exit.o)
+ .fini0         0x00000000000012ce        0x4 /usr/lib/gcc/avr/5.4.0/avr35/libgcc.a(_exit.o)
  *(.fini0)
-                0x00000000000012c4                _etext = .
+                0x00000000000012d2                _etext = .
 
-.data           0x0000000000800100       0x20 load address 0x00000000000012c4
+.data           0x0000000000800100       0x20 load address 0x00000000000012d2
                 0x0000000000800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x0000000000800100       0x20 obj/KeyboardMouse.o
@@ -1027,8 +1029,8 @@ END GROUP
                 0x0000000000800247                USB_DeviceState
                 0x0000000000800248                USB_ControlRequest
                 0x0000000000800250                PROVIDE (__bss_end, .)
-                0x00000000000012c4                __data_load_start = LOADADDR (.data)
-                0x00000000000012e4                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000000000012d2                __data_load_start = LOADADDR (.data)
+                0x00000000000012f2                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0000000000800250        0x0
                 [!provide]                        PROVIDE (__noinit_start, .)
@@ -1108,45 +1110,45 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x0000000000000000      0x2a8
+.debug_aranges  0x0000000000000000      0x2b0
  *(.debug_aranges)
  .debug_aranges
-                0x0000000000000000       0x80 obj/KeyboardMouse.o
+                0x0000000000000000       0x88 obj/KeyboardMouse.o
  .debug_aranges
-                0x0000000000000080       0x20 obj/Descriptors.o
+                0x0000000000000088       0x20 obj/Descriptors.o
  .debug_aranges
-                0x00000000000000a0       0xc8 obj/EndpointStream_AVR8.o
+                0x00000000000000a8       0xc8 obj/EndpointStream_AVR8.o
  .debug_aranges
-                0x0000000000000168       0x40 obj/Endpoint_AVR8.o
+                0x0000000000000170       0x40 obj/Endpoint_AVR8.o
  .debug_aranges
-                0x00000000000001a8       0x30 obj/USBController_AVR8.o
+                0x00000000000001b0       0x30 obj/USBController_AVR8.o
  .debug_aranges
-                0x00000000000001d8       0x30 obj/USBInterrupt_AVR8.o
+                0x00000000000001e0       0x30 obj/USBInterrupt_AVR8.o
  .debug_aranges
-                0x0000000000000208       0x20 obj/DeviceStandardReq.o
+                0x0000000000000210       0x20 obj/DeviceStandardReq.o
  .debug_aranges
-                0x0000000000000228       0x30 obj/Events.o
+                0x0000000000000230       0x30 obj/Events.o
  .debug_aranges
-                0x0000000000000258       0x20 obj/USBTask.o
+                0x0000000000000260       0x20 obj/USBTask.o
  .debug_aranges
-                0x0000000000000278       0x30 obj/HIDClassDevice.o
+                0x0000000000000280       0x30 obj/HIDClassDevice.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000     0x5ac6
+.debug_info     0x0000000000000000     0x5ac7
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x0000000000000000      0x6ba /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr35/crtatmega16u2.o
- .debug_info    0x00000000000006ba      0xd91 obj/KeyboardMouse.o
- .debug_info    0x000000000000144b      0x755 obj/Descriptors.o
- .debug_info    0x0000000000001ba0     0x181d obj/EndpointStream_AVR8.o
- .debug_info    0x00000000000033bd      0x620 obj/Endpoint_AVR8.o
- .debug_info    0x00000000000039dd      0x483 obj/USBController_AVR8.o
- .debug_info    0x0000000000003e60      0x5c2 obj/USBInterrupt_AVR8.o
- .debug_info    0x0000000000004422      0xa41 obj/DeviceStandardReq.o
- .debug_info    0x0000000000004e63       0xde obj/Events.o
- .debug_info    0x0000000000004f41      0x272 obj/USBTask.o
- .debug_info    0x00000000000051b3      0x913 obj/HIDClassDevice.o
+ .debug_info    0x00000000000006ba      0xd92 obj/KeyboardMouse.o
+ .debug_info    0x000000000000144c      0x755 obj/Descriptors.o
+ .debug_info    0x0000000000001ba1     0x181d obj/EndpointStream_AVR8.o
+ .debug_info    0x00000000000033be      0x620 obj/Endpoint_AVR8.o
+ .debug_info    0x00000000000039de      0x483 obj/USBController_AVR8.o
+ .debug_info    0x0000000000003e61      0x5c2 obj/USBInterrupt_AVR8.o
+ .debug_info    0x0000000000004423      0xa41 obj/DeviceStandardReq.o
+ .debug_info    0x0000000000004e64       0xde obj/Events.o
+ .debug_info    0x0000000000004f42      0x272 obj/USBTask.o
+ .debug_info    0x00000000000051b4      0x913 obj/HIDClassDevice.o
 
 .debug_abbrev   0x0000000000000000     0x19d3
  *(.debug_abbrev)
@@ -1162,32 +1164,32 @@ END GROUP
  .debug_abbrev  0x0000000000001647      0x16b obj/USBTask.o
  .debug_abbrev  0x00000000000017b2      0x221 obj/HIDClassDevice.o
 
-.debug_line     0x0000000000000000     0x33bd
+.debug_line     0x0000000000000000     0x33d8
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x0000000000000000       0x1a /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr35/crtatmega16u2.o
- .debug_line    0x000000000000001a      0x71e obj/KeyboardMouse.o
- .debug_line    0x0000000000000738      0x217 obj/Descriptors.o
- .debug_line    0x000000000000094f     0x1411 obj/EndpointStream_AVR8.o
- .debug_line    0x0000000000001d60      0x481 obj/Endpoint_AVR8.o
- .debug_line    0x00000000000021e1      0x2af obj/USBController_AVR8.o
- .debug_line    0x0000000000002490      0x3d1 obj/USBInterrupt_AVR8.o
- .debug_line    0x0000000000002861      0x471 obj/DeviceStandardReq.o
- .debug_line    0x0000000000002cd2       0x98 obj/Events.o
- .debug_line    0x0000000000002d6a      0x163 obj/USBTask.o
- .debug_line    0x0000000000002ecd      0x4f0 obj/HIDClassDevice.o
+ .debug_line    0x000000000000001a      0x739 obj/KeyboardMouse.o
+ .debug_line    0x0000000000000753      0x217 obj/Descriptors.o
+ .debug_line    0x000000000000096a     0x1411 obj/EndpointStream_AVR8.o
+ .debug_line    0x0000000000001d7b      0x481 obj/Endpoint_AVR8.o
+ .debug_line    0x00000000000021fc      0x2af obj/USBController_AVR8.o
+ .debug_line    0x00000000000024ab      0x3d1 obj/USBInterrupt_AVR8.o
+ .debug_line    0x000000000000287c      0x471 obj/DeviceStandardReq.o
+ .debug_line    0x0000000000002ced       0x98 obj/Events.o
+ .debug_line    0x0000000000002d85      0x163 obj/USBTask.o
+ .debug_line    0x0000000000002ee8      0x4f0 obj/HIDClassDevice.o
 
-.debug_frame    0x0000000000000000      0x830
+.debug_frame    0x0000000000000000      0x840
  *(.debug_frame)
- .debug_frame   0x0000000000000000      0x178 obj/KeyboardMouse.o
- .debug_frame   0x0000000000000178       0x24 obj/Descriptors.o
- .debug_frame   0x000000000000019c      0x3bc obj/EndpointStream_AVR8.o
- .debug_frame   0x0000000000000558       0x78 obj/Endpoint_AVR8.o
- .debug_frame   0x00000000000005d0       0x44 obj/USBController_AVR8.o
- .debug_frame   0x0000000000000614       0x8c obj/USBInterrupt_AVR8.o
- .debug_frame   0x00000000000006a0       0x3c obj/DeviceStandardReq.o
- .debug_frame   0x00000000000006dc       0x44 obj/Events.o
- .debug_frame   0x0000000000000720       0x2c obj/USBTask.o
- .debug_frame   0x000000000000074c       0xe4 obj/HIDClassDevice.o
+ .debug_frame   0x0000000000000000      0x188 obj/KeyboardMouse.o
+ .debug_frame   0x0000000000000188       0x24 obj/Descriptors.o
+ .debug_frame   0x00000000000001ac      0x3bc obj/EndpointStream_AVR8.o
+ .debug_frame   0x0000000000000568       0x78 obj/Endpoint_AVR8.o
+ .debug_frame   0x00000000000005e0       0x44 obj/USBController_AVR8.o
+ .debug_frame   0x0000000000000624       0x8c obj/USBInterrupt_AVR8.o
+ .debug_frame   0x00000000000006b0       0x3c obj/DeviceStandardReq.o
+ .debug_frame   0x00000000000006ec       0x44 obj/Events.o
+ .debug_frame   0x0000000000000730       0x2c obj/USBTask.o
+ .debug_frame   0x000000000000075c       0xe4 obj/HIDClassDevice.o
 
 .debug_str      0x0000000000000000     0x2345
  *(.debug_str)
@@ -1213,17 +1215,17 @@ END GROUP
  .debug_str     0x00000000000021dd      0x168 obj/HIDClassDevice.o
                                         0x710 (size before relaxing)
 
-.debug_loc      0x0000000000000000     0x37ff
+.debug_loc      0x0000000000000000     0x37af
  *(.debug_loc)
- .debug_loc     0x0000000000000000      0x7de obj/KeyboardMouse.o
- .debug_loc     0x00000000000007de      0x2e7 obj/Descriptors.o
- .debug_loc     0x0000000000000ac5     0x1f3d obj/EndpointStream_AVR8.o
- .debug_loc     0x0000000000002a02      0x399 obj/Endpoint_AVR8.o
- .debug_loc     0x0000000000002d9b       0x78 obj/USBController_AVR8.o
- .debug_loc     0x0000000000002e13      0x26f obj/USBInterrupt_AVR8.o
- .debug_loc     0x0000000000003082      0x2f6 obj/DeviceStandardReq.o
- .debug_loc     0x0000000000003378       0x49 obj/USBTask.o
- .debug_loc     0x00000000000033c1      0x43e obj/HIDClassDevice.o
+ .debug_loc     0x0000000000000000      0x78e obj/KeyboardMouse.o
+ .debug_loc     0x000000000000078e      0x2e7 obj/Descriptors.o
+ .debug_loc     0x0000000000000a75     0x1f3d obj/EndpointStream_AVR8.o
+ .debug_loc     0x00000000000029b2      0x399 obj/Endpoint_AVR8.o
+ .debug_loc     0x0000000000002d4b       0x78 obj/USBController_AVR8.o
+ .debug_loc     0x0000000000002dc3      0x26f obj/USBInterrupt_AVR8.o
+ .debug_loc     0x0000000000003032      0x2f6 obj/DeviceStandardReq.o
+ .debug_loc     0x0000000000003328       0x49 obj/USBTask.o
+ .debug_loc     0x0000000000003371      0x43e obj/HIDClassDevice.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -1243,18 +1245,18 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x0000000000000000      0x3c0
+.debug_ranges   0x0000000000000000      0x3c8
  *(.debug_ranges)
- .debug_ranges  0x0000000000000000       0x70 obj/KeyboardMouse.o
- .debug_ranges  0x0000000000000070       0x28 obj/Descriptors.o
- .debug_ranges  0x0000000000000098      0x1f8 obj/EndpointStream_AVR8.o
- .debug_ranges  0x0000000000000290       0x78 obj/Endpoint_AVR8.o
- .debug_ranges  0x0000000000000308       0x20 obj/USBController_AVR8.o
- .debug_ranges  0x0000000000000328       0x20 obj/USBInterrupt_AVR8.o
- .debug_ranges  0x0000000000000348       0x28 obj/DeviceStandardReq.o
- .debug_ranges  0x0000000000000370       0x20 obj/Events.o
- .debug_ranges  0x0000000000000390       0x10 obj/USBTask.o
- .debug_ranges  0x00000000000003a0       0x20 obj/HIDClassDevice.o
+ .debug_ranges  0x0000000000000000       0x78 obj/KeyboardMouse.o
+ .debug_ranges  0x0000000000000078       0x28 obj/Descriptors.o
+ .debug_ranges  0x00000000000000a0      0x1f8 obj/EndpointStream_AVR8.o
+ .debug_ranges  0x0000000000000298       0x78 obj/Endpoint_AVR8.o
+ .debug_ranges  0x0000000000000310       0x20 obj/USBController_AVR8.o
+ .debug_ranges  0x0000000000000330       0x20 obj/USBInterrupt_AVR8.o
+ .debug_ranges  0x0000000000000350       0x28 obj/DeviceStandardReq.o
+ .debug_ranges  0x0000000000000378       0x20 obj/Events.o
+ .debug_ranges  0x0000000000000398       0x10 obj/USBTask.o
+ .debug_ranges  0x00000000000003a8       0x20 obj/HIDClassDevice.o
 
 .debug_macro
  *(.debug_macro)

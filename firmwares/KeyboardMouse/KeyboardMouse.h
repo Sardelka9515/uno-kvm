@@ -50,6 +50,7 @@
 		
     #define COMMAND_KEYBOARD          1
     #define COMMAND_MOUSE             2
+	#define COMMAND_RESET			 0xff
     #define MOUSE_COMMAND_SIZE        4
     #define KEYBOARD_COMMAND_SIZE     8
 

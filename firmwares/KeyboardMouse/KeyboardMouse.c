@@ -298,7 +298,13 @@ int8_t CommandBuffered = 0;
 ISR(USART1_RX_vect, ISR_BLOCK)
 {
 	uint8_t ReceivedByte = UDR1;
-
+	if(ReceivedByte == COMMAND_RESET){
+		CurrentCommand = 0;
+		CommandBuffered = 0;
+		RingBuffer_InitBuffer(&Keyboard_Buffer);
+		RingBuffer_InitBuffer(&Mouse_Buffer);
+		return;
+	}
 	if (USB_DeviceState == DEVICE_STATE_Configured){
 		if(CurrentCommand == COMMAND_KEYBOARD){
 			RingBuffer_Insert(&Keyboard_Buffer, ReceivedByte);

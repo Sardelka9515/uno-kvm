@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO.Ports;
 using static UnoKVM.HID.Commands;
-using static UnoKVM.HID.Keys;
+using static UnoKVM.HID.HIDKey;
 
 namespace UnoKVM.HID
 {
@@ -17,7 +17,7 @@ namespace UnoKVM.HID
             ReadTimeout = 500;
             WriteTimeout = 500;
         }
-
+        public void Reset() => BaseStream.WriteByte(COMMAND_RESET);
         public unsafe void SendKeyboardCommand(KeyboardCommand command) => SendKeyboardCommand(ref command);
         public unsafe void SendKeyboardCommand(ref KeyboardCommand command)
         {
@@ -55,7 +55,7 @@ namespace UnoKVM.HID
                 }
                 else if (c >= 'A' && c <= 'Z')
                 {
-                    command.modifiers = MOD_SHIFT_LEFT; /* Caps */
+                    command.modifiers = HIDModifiers.LeftShift; /* Caps */
                     command.keys[0] = (byte)(c - 'A' + 4);
                 }
                 else
@@ -63,11 +63,11 @@ namespace UnoKVM.HID
                     switch (c)
                     {
                         case (byte)' ':
-                            command.keys[0] = KEY_SPACE;  // Space
+                            command.keys[0] = (byte)KeySpace;  // Space
                             break;
                         case (byte)'!':
-                            command.modifiers = MOD_SHIFT_LEFT; /* Caps */
-                            command.keys[0] = KEY_1;            // 1
+                            command.modifiers = HIDModifiers.LeftShift; /* Caps */
+                            command.keys[0] = (byte)Key1;            // 1
                             break;
                         default:
                             /* Character not handled. To do: add rest of chars from HUT1_11.pdf */

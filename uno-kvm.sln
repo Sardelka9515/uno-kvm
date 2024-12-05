@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoKVM.Web", "web\UnoKVM.Web.csproj", "{4EEC8D78-3CAE-447C-96D6-054DB17746CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnoKVM.Web", "web\UnoKVM.Web.csproj", "{4EEC8D78-3CAE-447C-96D6-054DB17746CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoKVM", "UnoKVM\UnoKVM.csproj", "{EB1589AD-63B0-47FE-B1A2-45FCEFCA2980}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnoKVM", "UnoKVM\UnoKVM.csproj", "{EB1589AD-63B0-47FE-B1A2-45FCEFCA2980}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{0297F9F1-C7D0-49AC-8147-2E8DC30CB782}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoKVM.Local", "UnoKVM.Local\UnoKVM.Local.csproj", "{DD64A9DF-C961-46E4-9E30-70FA3DF9E115}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +25,19 @@ Global
 		{EB1589AD-63B0-47FE-B1A2-45FCEFCA2980}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB1589AD-63B0-47FE-B1A2-45FCEFCA2980}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB1589AD-63B0-47FE-B1A2-45FCEFCA2980}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0297F9F1-C7D0-49AC-8147-2E8DC30CB782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0297F9F1-C7D0-49AC-8147-2E8DC30CB782}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0297F9F1-C7D0-49AC-8147-2E8DC30CB782}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0297F9F1-C7D0-49AC-8147-2E8DC30CB782}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD64A9DF-C961-46E4-9E30-70FA3DF9E115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD64A9DF-C961-46E4-9E30-70FA3DF9E115}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD64A9DF-C961-46E4-9E30-70FA3DF9E115}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD64A9DF-C961-46E4-9E30-70FA3DF9E115}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51F44985-A1AA-494D-86D5-F7A8C597AA94}
 	EndGlobalSection
 EndGlobal
