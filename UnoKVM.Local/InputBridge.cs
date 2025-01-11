@@ -10,7 +10,7 @@ using UnoKVM.HID;
 
 namespace UnoKVM.Local
 {
-    public abstract class InputBridge:IDisposable
+    public abstract class InputBridge : IDisposable
     {
         public static readonly HashSet<Keys> ModifierKeys = new()
         {
@@ -61,15 +61,15 @@ namespace UnoKVM.Local
         }
     }
 
-    public class UARTInputBridge : InputBridge,IDisposable
+    public class UARTInputBridge : InputBridge, IDisposable
     {
         List<Keys> downedKeys = [];
-        InputChannel channel;
+        UARTInputChannel channel;
         private bool disposedValue;
 
         public UARTInputBridge(string portName)
         {
-            channel = new InputChannel(portName);
+            channel = new UARTInputChannel(portName);
             channel.Open();
             channel.Reset();
         }
@@ -103,7 +103,7 @@ namespace UnoKVM.Local
                 }
                 else
                 {
-                    var code = HIDUtil.VKToHID((VK)downedKeys[i]);
+                    var code = HIDUtil.VKToHIDKey((VK)downedKeys[i]);
                     if (code != 0)
                     {
                         command.keys[keysDown++] = (byte)code;
@@ -117,34 +117,13 @@ namespace UnoKVM.Local
             Debug.WriteLine(command.ToString());
             channel?.SendKeyboardCommand(ref command);
         }
-
-        protected virtual void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (disposing)
             {
-                if (disposing)
-                {
-                    channel?.Close();
-                }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-                // TODO: set large fields to null
-                disposedValue = true;
+                channel.Close();
+                channel.Dispose();
             }
-        }
-
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~UARTInputBridge()
-        // {
-        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-        //     Dispose(disposing: false);
-        // }
-
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
         }
     }
 }
