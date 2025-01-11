@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Channels;
-using System.Threading.Tasks;
-using static UnoKVM.HID.Commands;
+﻿using System.Diagnostics;
 using UnoKVM.HID;
+using static UnoKVM.HID.Commands;
 
 namespace UnoKVM.Local
 {
-    public abstract class InputBridge : IDisposable
+    public abstract class InputBridgeBase : IDisposable
     {
         public static readonly HashSet<Keys> ModifierKeys = new()
         {
@@ -61,16 +55,15 @@ namespace UnoKVM.Local
         }
     }
 
-    public class UARTInputBridge : InputBridge, IDisposable
+    public class InputBridge : InputBridgeBase, IDisposable
     {
         List<Keys> downedKeys = [];
-        UartInputChannel channel;
+        IInputChannel channel;
         private bool disposedValue;
 
-        public UARTInputBridge(string portName)
+        public InputBridge(IInputChannel inputChannel)
         {
-            channel = new UartInputChannel(portName);
-            channel.Open();
+            channel = inputChannel;
             channel.Reset();
         }
         public override void KeyDown(KeyEventArgs e)
@@ -121,7 +114,6 @@ namespace UnoKVM.Local
         {
             if (disposing)
             {
-                channel.Close();
                 channel.Dispose();
             }
         }

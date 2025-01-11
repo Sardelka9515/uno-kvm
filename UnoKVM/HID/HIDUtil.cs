@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace UnoKVM.HID
 {
+    public class UdpHIDInfo(IPEndPoint ep, string name)
+    {
+        public IPEndPoint EndPoint { get; } = ep;
+        public string Name { get; } = name;
+    }
     public static class HIDUtil
     {
         static void ThrowModifier(VK key)
@@ -153,6 +157,86 @@ namespace UnoKVM.HID
                 // VK.IMEConvert => HIDKey.IMEConvert,
                 _ => throw new ArgumentOutOfRangeException(nameof(key), key, null)
             };
+        }
+
+
+        const string DISCOVERY_MESSAGE = "UNOKVM-DISCOVERY";
+        const string ACKNOWLEDGE_MESSAGE = "UNOKVM-ACKNOWLEDGE-";
+
+        public static UdpHIDInfo[] DiscoverUdpHIDs(IPAddress subnet, int timeout = 500, int iterations = 5)
+        {
+            List<UdpHIDInfo> hids = new List<UdpHIDInfo>();
+            if (subnet.ToString().Split('.').Last() != "255")
+            {
+                throw new ArgumentException("Invalid broadcast address");
+            }
+
+            var udp = new UdpClient() { EnableBroadcast = true };
+            udp.Client.ReceiveTimeout = timeout;
+            var ep = new IPEndPoint(IPAddress.Any, 0);
+            // Send a broadcast message for discovery
+            var msg = Encoding.ASCII.GetBytes(DISCOVERY_MESSAGE);
+            udp.Send(msg, msg.Length, new IPEndPoint(subnet, 16500));
+            for (int i = 0; i < iterations; i++)
+            {
+                do
+                {
+                    try
+                    {
+                        var data = udp.Receive(ref ep);
+                        var str = Encoding.ASCII.GetString(data);
+                        if (str.StartsWith(ACKNOWLEDGE_MESSAGE))
+                        {
+                            hids.Add(new UdpHIDInfo(ep, str.Substring(ACKNOWLEDGE_MESSAGE.Length)));
+                        }
+                    }
+                    catch { }
+                } while (udp.Available > 0);
+            }
+            udp.Close();
+            udp.Dispose();
+            return hids.ToArray();
+        }
+
+
+        public static IPAddress GetSubnet(IPAddress ip, IPAddress mask)
+        {
+            // Get mask bit count
+            var maskBytes = mask.GetAddressBytes();
+            var ipBytes = ip.GetAddressBytes();
+            // Set non-masked bits to 1
+            for (int i = 0; i < 4; i++)
+            {
+                ipBytes[i] |= (byte)~maskBytes[i];
+            }
+            return new IPAddress(ipBytes);
+        }
+        public static UdpHIDInfo[] DiscoverUdpHIDs(int timeout = 500, int iterations = 5)
+        {
+            // Find all ip addresses and subnet on local machine
+            var interfaces = NetworkInterface.GetAllNetworkInterfaces();
+            var subnets = interfaces.SelectMany(x => x.GetIPProperties().UnicastAddresses
+            .Where(a => a.Address.AddressFamily == AddressFamily.InterNetwork)
+            .Select(y => GetSubnet(y.Address, y.IPv4Mask))).ToArray();
+
+            List<UdpHIDInfo> infos = [];
+            Parallel.For(0, subnets.Length, i =>
+            {
+                try
+                {
+
+                    var devices = DiscoverUdpHIDs(subnets[i], timeout, iterations);
+                    foreach (var device in devices)
+                    {
+                        lock (infos)
+                        {
+                            infos.Add(device);
+                        }
+                    }
+                }
+                catch { }
+            });
+            return infos.ToArray();
         }
     }
 }

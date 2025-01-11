@@ -1,14 +1,9 @@
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.IO.Ports;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using AForge.Video;
 using AForge.Video.DirectShow;
 using Gma.System.MouseKeyHook;
+using System.IO.Ports;
+using System.Net;
 using UnoKVM.HID;
-using static UnoKVM.HID.Commands;
 namespace UnoKVM.Local
 {
     class VideoSourceItem(FilterInfo cam)
@@ -62,9 +57,14 @@ namespace UnoKVM.Local
             {
                 cbVideoSources.Items.Add(new VideoSourceItem(cam));
             }
+            var udps = HIDUtil.DiscoverUdpHIDs(200);
+            foreach (var udp in udps)
+            {
+                cbInputDevices.Items.Add($"{udp.Name} - {udp.EndPoint}");
+            }
         }
 
-        InputBridge? bridge;
+        InputBridgeBase? bridge;
         private void Connect(object sender, EventArgs e)
         {
             if (videoSource == null)
@@ -83,7 +83,19 @@ namespace UnoKVM.Local
                     return;
                 }
 
-                bridge = new UARTInputBridge(inputPort);
+                if (inputPort.StartsWith("COM"))
+                {
+                    var channel = new UartInputChannel(inputPort);
+                    channel.Open();
+                    bridge = new InputBridge(channel);
+                }
+                else
+                {
+                    var channel = new UdpInputChannel();
+                    var ep = IPEndPoint.Parse(inputPort.Split(" - ")[1]);
+                    channel.Connect(ep);
+                    bridge = new InputBridge(channel);
+                }
 
                 videoSource = new VideoCaptureDevice(camItem.MonikerString);
                 videoSource.Start();
@@ -94,7 +106,7 @@ namespace UnoKVM.Local
                 {
                     bridge.KeyDown(e);
                 };
-                inputHook.KeyUp += (s, e) =>    
+                inputHook.KeyUp += (s, e) =>
                 {
                     bridge.KeyUp(e);
                 };

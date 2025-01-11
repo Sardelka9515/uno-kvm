@@ -5,7 +5,7 @@ using static UnoKVM.HID.HIDKey;
 
 namespace UnoKVM.HID
 {
-    public class UartInputChannel : SerialPort
+    public class UartInputChannel : SerialPort, IInputChannel
     {
         public UartInputChannel(string portName) : base(portName, 9600)
         {

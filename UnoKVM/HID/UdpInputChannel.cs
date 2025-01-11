@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Sockets;
 using static UnoKVM.HID.Commands;
-using static UnoKVM.HID.HIDKey;
 
 
 namespace UnoKVM.HID
 {
-    public class UdpInputChannel : UdpClient
+    public class UdpInputChannel : UdpClient, IInputChannel
     {
+        public void Connect(UdpHIDInfo info) => Connect(info.EndPoint);
         public void SendKeyboardCommand(KeyboardCommand command) => SendKeyboardCommand(ref command);
         public void SendMouseCommand(MouseCommand command) => SendMouseCommand(ref command);
         public unsafe void SendKeyboardCommand(ref KeyboardCommand command)
