@@ -21,7 +21,6 @@ namespace UnoKVM.Local
     public partial class KVMControl : Form
     {
         VideoCaptureDevice? videoSource;
-        InputChannel? channel;
         IKeyboardMouseEvents? inputHook;
 
         public KVMControl()
@@ -64,7 +63,8 @@ namespace UnoKVM.Local
                 cbVideoSources.Items.Add(new VideoSourceItem(cam));
             }
         }
-        List<Keys> downedKeys = [];
+
+        InputBridge? bridge;
         private void Connect(object sender, EventArgs e)
         {
             if (videoSource == null)
@@ -83,32 +83,20 @@ namespace UnoKVM.Local
                     return;
                 }
 
-                channel = new InputChannel(inputPort);
-                channel.Open();
-                channel.Reset();
+                bridge = new UARTInputBridge(inputPort);
 
                 videoSource = new VideoCaptureDevice(camItem.MonikerString);
                 videoSource.Start();
                 videoSource.NewFrame += UpdatePicture;
 
-
                 inputHook = Hook.GlobalEvents();
                 inputHook.KeyDown += (s, e) =>
                 {
-                    if (!downedKeys.Contains(e.KeyCode))
-                    {
-                        downedKeys.Add(e.KeyCode);
-                    }
-                    e.SuppressKeyPress = true;
-                    // Debug.WriteLine(e.KeyData);
-                    UpdateKeyboardState();
+                    bridge.KeyDown(e);
                 };
-                inputHook.KeyUp += (s, e) =>
+                inputHook.KeyUp += (s, e) =>    
                 {
-                    downedKeys.Remove(e.KeyCode);
-                    e.SuppressKeyPress = true;
-                    // Debug.WriteLine(e.KeyData);
-                    UpdateKeyboardState();
+                    bridge.KeyUp(e);
                 };
 
                 btConnect.Text = "Disconnect";
@@ -119,8 +107,8 @@ namespace UnoKVM.Local
                 videoSource.WaitForStop();
                 videoSource = null;
                 btConnect.Text = "Connect";
-                channel?.Close();
-                channel = null;
+                bridge?.Dispose();
+                bridge = null;
                 inputHook?.Dispose();
                 inputHook = null;
             }
@@ -147,69 +135,5 @@ namespace UnoKVM.Local
             }
         }
 
-        [DllImport("user32.dll")]
-        static extern short GetAsyncKeyState(uint vKey);
-
-        const uint MAPVK_VK_TO_VSC = 0x00;
-        [DllImport("user32.dll")]
-        static extern uint MapVirtualKeyA(uint uCode, uint uMapType);
-
-
-        Array keyValues = Enum.GetValues(typeof(Keys));
-
-        static readonly HashSet<Keys> modifierKeys = new()
-        {
-            Keys.LWin,
-            Keys.RWin,
-            Keys.ShiftKey,
-            Keys.LShiftKey,
-            Keys.RShiftKey,
-            Keys.ControlKey,
-            Keys.LControlKey,
-            Keys.RControlKey,
-            Keys.Menu,
-            Keys.LMenu,
-            Keys.RMenu
-        };
-        unsafe void UpdateKeyboardState()
-        {
-            int keysDown = 0;
-            KeyboardCommand command = default;
-            for (int i = 0; i < downedKeys.Count; i++)
-            {
-                if (modifierKeys.Contains(downedKeys[i]))
-                {
-                    try
-                    {
-                        command.modifiers |= HIDUtil.VKToHIDModifier((VK)downedKeys[i]);
-                    }
-                    catch(ArgumentOutOfRangeException)
-                    {
-                        MessageBox.Show("Unhandle modifier key:" + downedKeys[i]);
-                    }
-                }
-                else
-                {
-                    try
-                    {
-                        var code = HIDUtil.VKToHIDKey((VK)downedKeys[i]);
-                        if (code != 0)
-                        {
-                            command.keys[keysDown++] = (byte)code;
-                            if (keysDown >= 6)
-                            {
-                                break;
-                            }
-                        }
-                    }
-                    catch (ArgumentOutOfRangeException)
-                    {
-                        MessageBox.Show("Unhandle key:" + downedKeys[i]);
-                    }
-                }
-            }
-            Debug.WriteLine(command.ToString());
-            channel?.SendKeyboardCommand(ref command);
-        }
     }
 }
