@@ -57,6 +57,7 @@ namespace UnoKVM.Local
             cbInputDevices.Items.Clear();
             cbInputDevices.Items.AddRange(SerialPort.GetPortNames());
 
+            cbVideoSources.Items.Clear();
             var cams = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             foreach (FilterInfo cam in cams)
             {
@@ -178,43 +179,35 @@ namespace UnoKVM.Local
             {
                 if (modifierKeys.Contains(downedKeys[i]))
                 {
-                    command.modifiers |= HIDUtil.VKToHIDModifier((VK)downedKeys[i]);
+                    try
+                    {
+                        command.modifiers |= HIDUtil.VKToHIDModifier((VK)downedKeys[i]);
+                    }
+                    catch(ArgumentOutOfRangeException)
+                    {
+                        MessageBox.Show("Unhandle modifier key:" + downedKeys[i]);
+                    }
                 }
                 else
                 {
-                    var code = HIDUtil.VKToHID((VK)downedKeys[i]);
-                    if (code != 0)
+                    try
                     {
-                        command.keys[keysDown++] = (byte)code;
-                        if (keysDown >= 6)
+                        var code = HIDUtil.VKToHIDKey((VK)downedKeys[i]);
+                        if (code != 0)
                         {
-                            break;
+                            command.keys[keysDown++] = (byte)code;
+                            if (keysDown >= 6)
+                            {
+                                break;
+                            }
                         }
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        MessageBox.Show("Unhandle key:" + downedKeys[i]);
                     }
                 }
             }
-            //for (uint key = 8; key < 0xff; key++)
-            //{
-            //    if (GetAsyncKeyState(key) != 0)
-            //    {
-            //        if (modifierKeys.Contains((Keys)key))
-            //        {
-            //            command.modifiers |= HIDUtil.VKToHIDModifier((VK)key);
-            //        }
-            //        else
-            //        {
-            //            var code = HIDUtil.VKToHID((VK)key);
-            //            if (code != 0)
-            //            {
-            //                command.keys[keysDown++] = (byte)code;
-            //                if (keysDown >= 6)
-            //                {
-            //                    break;
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
             Debug.WriteLine(command.ToString());
             channel?.SendKeyboardCommand(ref command);
         }

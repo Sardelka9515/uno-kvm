@@ -32,7 +32,7 @@ namespace UnoKVM.HID
             };
         }
 
-        public static HIDKey VKToHID(VK key)
+        public static HIDKey VKToHIDKey(VK key)
         {
             return key switch
             {
@@ -70,6 +70,7 @@ namespace UnoKVM.HID
                 VK.OemMinus => HIDKey.KeyMinus,
                 VK.Oemplus => HIDKey.KeyEqual,
                 VK.OemBackslash => HIDKey.KeyBackslash,
+                VK.OemPipe => HIDKey.KeyBackslash,
                 VK.OemSemicolon => HIDKey.KeySemicolon,
                 VK.OemQuotes => HIDKey.KeyApostrophe,
                 VK.Oemtilde => HIDKey.KeyGrave,
@@ -109,6 +110,8 @@ namespace UnoKVM.HID
                 VK.PageDown => HIDKey.KeyPageDown,
                 VK.Down => HIDKey.KeyDownArrow,
                 VK.Up => HIDKey.KeyUpArrow,
+                VK.Left => HIDKey.KeyLeftArrow,
+                VK.Right => HIDKey.KeyRightArrow,
                 VK.NumPad1 => HIDKey.KeyNumpad1,
                 VK.NumPad2 => HIDKey.KeyNumpad2,
                 VK.NumPad3 => HIDKey.KeyNumpad3,
