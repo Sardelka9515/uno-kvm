@@ -5,9 +5,9 @@ using static UnoKVM.HID.HIDKey;
 
 namespace UnoKVM.HID
 {
-    public class UARTInputChannel : SerialPort
+    public class UartInputChannel : SerialPort
     {
-        public UARTInputChannel(string portName) : base(portName, 9600)
+        public UartInputChannel(string portName) : base(portName, 9600)
         {
             BaudRate = 9600;
             DataBits = 8;
@@ -18,7 +18,8 @@ namespace UnoKVM.HID
             WriteTimeout = 500;
         }
         public void Reset() => BaseStream.WriteByte(COMMAND_RESET);
-        public unsafe void SendKeyboardCommand(KeyboardCommand command) => SendKeyboardCommand(ref command);
+        public void SendKeyboardCommand(KeyboardCommand command) => SendKeyboardCommand(ref command);
+        public void SendMouseCommand(MouseCommand command) => SendMouseCommand(ref command);
         public unsafe void SendKeyboardCommand(ref KeyboardCommand command)
         {
             Debug.Assert(sizeof(KeyboardCommand) == KEYBOARD_COMMAND_SIZE);
@@ -29,7 +30,6 @@ namespace UnoKVM.HID
             }
         }
 
-        public unsafe void SendMouseCommand(MouseCommand command) => SendMouseCommand(ref command);
         public unsafe void SendMouseCommand(ref MouseCommand command)
         {
             Debug.Assert(sizeof(MouseCommand) == MOUSE_COMMAND_SIZE);

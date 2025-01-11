@@ -64,12 +64,12 @@ namespace UnoKVM.Local
     public class UARTInputBridge : InputBridge, IDisposable
     {
         List<Keys> downedKeys = [];
-        UARTInputChannel channel;
+        UartInputChannel channel;
         private bool disposedValue;
 
         public UARTInputBridge(string portName)
         {
-            channel = new UARTInputChannel(portName);
+            channel = new UartInputChannel(portName);
             channel.Open();
             channel.Reset();
         }
