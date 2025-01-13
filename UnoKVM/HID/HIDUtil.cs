@@ -224,7 +224,6 @@ namespace UnoKVM.HID
             {
                 try
                 {
-
                     var devices = DiscoverUdpHIDs(subnets[i], timeout, iterations);
                     foreach (var device in devices)
                     {

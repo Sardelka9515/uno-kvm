@@ -5,7 +5,6 @@ namespace test
 {
 
 
-
     internal class Program
     {
         unsafe static void Main(string[] args)
@@ -16,6 +15,7 @@ namespace test
             {
                 Console.WriteLine($"Found device {device.Name} at {device.EndPoint}");
             }
+            return;
             var dev = devices.First();
             var channel = new UdpInputChannel();
             channel.Connect(dev.EndPoint);
